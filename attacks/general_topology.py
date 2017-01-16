@@ -19,20 +19,20 @@ class spider(Topo):
     def build(self):
         switchs = []
         for i in range(4):
-            switch = self.addswitch('s'+str(i+1))
+            switch = self.addSwitch('s'+str(i+1))
             switchs.append(switch)
             for j in range(3):
                 host = self.addHost('h'+str(i*3+j+1), mac=macs[i*3+j], ip=ips[i*3+j])
                 self.addLink(host, switch)
 
-        switch = self.addswitch('s5')
+        switch = self.addSwitch('s5')
         switchs.append(switch)
 
-        self.addLink(switch[0], switch[1])
-        self.addLink(switch[0], switch[4])
-        self.addLink(switch[1], switch[4])
-        self.addLink(switch[2], switch[4])
-        self.addLink(switch[2], switch[3])
+        self.addLink(switchs[0], switchs[1])
+        self.addLink(switchs[0], switchs[4])
+        self.addLink(switchs[1], switchs[4])
+        self.addLink(switchs[2], switchs[4])
+        self.addLink(switchs[2], switchs[3])
 
 
 def scenario(controller_ip):
@@ -47,9 +47,10 @@ def scenario(controller_ip):
 
 if __name__ == '__main__':
     setLogLevel('info')
-    scenario()
 
     if len(sys.argv)>1:
         controller_ip = sys.argv[1]
     else:
         controller_ip = '192.168.58.2'
+
+    scenario(controller_ip)
