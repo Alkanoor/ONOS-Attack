@@ -4,8 +4,8 @@ Prérequis : aucun
 Depuis mininet :
 
 ./general_topology.py
-    h5 python lldp_exploit.py 1 &
-    h5 python lldp_exploit.py 12 &
+    h5 python lldp_exploit.py 1 h5-eth0 &
+    h5 python lldp_exploit.py 4 h5-eth0 &
     h1 ping h12
 
 
@@ -14,5 +14,6 @@ Depuis le contrôleur :
 wireshark
 
 
+On observe alors la création d'un nouveau lien virtuel entre s1 et s4 qui n'existe pas dans la pratique ce qui aboutit parfois à l'arrêt du ping.
 
-Conclusion : l'attaque est complexe à arrêter dans le cas d'un équipement
+Conclusion : l'attaque est complexe à arrêter dans le cas d'un équipement malveillant directement présent sur le réseau.
