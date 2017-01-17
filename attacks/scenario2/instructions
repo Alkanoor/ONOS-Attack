@@ -1,0 +1,18 @@
+Prérequis : aucun
+
+
+Depuis mininet :
+
+./general_topology.py
+    h5 python lldp_exploit.py 1 &
+    h5 python lldp_exploit.py 12 &
+    h1 ping h12
+
+
+Depuis le contrôleur :
+
+wireshark
+
+
+
+Conclusion : l'attaque est complexe à arrêter dans le cas d'un équipement
