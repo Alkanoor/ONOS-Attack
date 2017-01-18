@@ -19,13 +19,13 @@ class spider(Topo):
     def build(self):
         switchs = []
         for i in range(4):
-            switch = self.addSwitch('s'+str(i+1), protocols="Openflow13")
+            switch = self.addSwitch('s'+str(i+1), protocols="OpenFlow13")
             switchs.append(switch)
             for j in range(3):
                 host = self.addHost('h'+str(i*3+j+1), mac=macs[i*3+j], ip=ips[i*3+j])
                 self.addLink(host, switch)
 
-        switch = self.addSwitch('s5', protocols="Openflow13")
+        switch = self.addSwitch('s5', protocols="OpenFlow13")
         switchs.append(switch)
 
         self.addLink(switchs[0], switchs[4])
