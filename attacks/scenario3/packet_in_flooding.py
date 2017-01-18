@@ -33,8 +33,11 @@ s.bind((interface, 0))
 t = []
 while (True):
     if len(t)<100000:
-        src_mac_address = random_mac()
-        src_ip = random_ip()
+        if random.randint(0,8) == 1 and len(t)>1:
+            src_ip,src_mac_address = t[random.randint(0,len(t)-1)]
+        else:
+            src_mac_address = random_mac()
+            src_ip = random_ip()
     else:
         if random.randint(0,100) == 10:
             t[random.randint(0,99999)] = (random_ip(), random_mac())
