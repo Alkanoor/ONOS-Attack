@@ -4,14 +4,19 @@ Prérequis : aucun
 Depuis mininet :
 
 ./general_topology.py
-    h5 python lldp_exploit.py 1 h5-eth0 &
-    h5 python lldp_exploit.py 4 h5-eth0 &
-    h1 ping h12
+    h5 python scenario2/lldp_exploit.py 1 h5-eth0 &
+    h5 python scenario2/lldp_exploit.py 4 h5-eth0 &
+    h1 ping h11
 
 
 Depuis le contrôleur :
 
-wireshark
+wireshark (filtrer avec "tcp.port == 6633 && openflow_v4")
+
+
+Depuis l'extérieur :
+
+Observer ce qui se passe au niveau de la représentation du réseau à l'adresse http://[adresse IP du contrôleur]:8181/onos/ui/index.html#/topo
 
 
 On observe alors la création d'un nouveau lien virtuel entre s1 et s4 qui n'existe pas dans la pratique ce qui aboutit parfois à l'arrêt du ping.

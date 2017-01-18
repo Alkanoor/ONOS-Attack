@@ -28,7 +28,6 @@ class spider(Topo):
         switch = self.addSwitch('s5')
         switchs.append(switch)
 
-        self.addLink(switchs[0], switchs[1])
         self.addLink(switchs[0], switchs[4])
         self.addLink(switchs[1], switchs[4])
         self.addLink(switchs[2], switchs[4])
