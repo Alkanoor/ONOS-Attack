@@ -5,16 +5,25 @@ Prérequis : -installer ettercap sur la machine virtuelle contenant Mininet
 Depuis mininet :
 
 ./general_topology.py
-    h2 ping h12
-    h12 tcpdump -w dump_ping -i h12-eth0
-    h7 ettercap -i h7-eth0 -T -w dump -M ARP /10.0.0.2/ // output
+    h2 ping h11 &
+    h11 tcpdump -w dump_victim.pcap -i h11-eth0 &
+    h6 ettercap -i h6-eth0 -T -w dump_attacker.pcap -M ARP /10.0.0.2// /10.0.0.11//
 
 
 Depuis le contrôleur :
 
-wireshark
+wireshark (filtrer avec "tcp.port == 6633 && openflow_v4", mais préférer observer les fichiers dump_victim.pcap et dump_attacker.pcap)
 
 
-On observe alors dans output le résultat du ping intercepté, et dans dump_ping que c'est h7 qui est à l'origine des messages de ping à partir d'un certain moment. Au niveau du contrôleur, on constate les nombreux PACKET_IN reçus.
+Attaque :
+    h2 communique avec h11
+    h6 empoisonne les tables ARP de h11 et de h2 pour faire croire à h11 qu'il est h2 et à h2 qu'il est h11
+    La communication continue mais les données de h2 vers h11 et de h11 vers h2 passent par h6.
 
-Conclusion : il est possible d'empêcher cette attaque si le contrôleur intercepte et analyse tous les paquets ARP (attention au DoS éventuel dans ce cas).
+Résulat expérimental :
+    Dans dump_attacker.pcap on a le résultat du ping intercepté
+    Dans dump_victim.pcap on peut constater que c'est h6 qui est à l'origine des messages de ping à partir d'un certain moment (et aussi lui qui les reçoit).
+    Au niveau du contrôleur, on constate les nombreux PACKET_IN reçus encapsulant de l'ARP et PACKET_OUT renvoyés en conséquence au début de l'attaque.
+
+Conclusion :
+    Il est possible d'empêcher cette attaque si le contrôleur intercepte et analyse tous les paquets ARP (attention au DoS éventuel dans ce cas).
