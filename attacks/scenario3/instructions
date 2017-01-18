@@ -6,18 +6,18 @@ Prérequis pratique : -ONOS dans sa configuration initiale, ou du moins, qui fai
 Depuis mininet :
 
 sudo ./general_topology.py
-    h7 python scenario3/packet_in_flooding.py 08:08:08:08:08:08 h7-eth0 &
+    h11 python scenario3/packet_in_flooding.py 06:06:06:06:06:06 h11-eth0 &
     #(attendre quelques secondes)
-    iperf h1 h11
-    iperf h4 h11
-    iperf h8 h11
+    iperf h1 h8
+    iperf h4 h8
+    iperf h12 h8
     dpctl dump-flows h11
 
 Comparer avec
 sudo ./general_topology.py
-    iperf h1 h11
-    iperf h4 h11
-    iperf h8 h11
+    iperf h1 h8
+    iperf h4 h8
+    iperf h12 h8
 
 
 Depuis le contrôleur :
