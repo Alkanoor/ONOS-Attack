@@ -50,4 +50,4 @@ while (True):
         t.append((src_ip,src_mac_address))
 
     s.send(eth_pkt)
-    time.sleep(0.00001)
+    time.sleep(0.001)
