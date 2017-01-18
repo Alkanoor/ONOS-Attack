@@ -1,9 +1,11 @@
-Prérequis : -ONOS dans sa configuration initiale, ou du moins, qui forward un certain nombre de paquets automatiquement
+Prérequis théorique : -Le contrôleur qui fait suivre un certain nombre de paquets automatiquement
+
+Prérequis pratique : -ONOS dans sa configuration initiale, ou du moins, qui fait suivre un certain nombre de paquets automatiquement
 
 
 Depuis mininet :
 
-./general_topology.py
+sudo ./general_topology.py
     h7 python packet_in_flooding.py  h7-eth0 &
     #(attendre quelques secondes)
     iperf h1 h12
@@ -11,7 +13,7 @@ Depuis mininet :
     iperf h1 h12
 
 Comparer avec
-./general_topology.py
+sudo ./general_topology.py
     iperf h1 h12
     iperf h1 h12
     iperf h1 h12
@@ -19,7 +21,7 @@ Comparer avec
 
 Depuis le contrôleur :
 
-wireshark
+wireshark (filtrer avec "tcp.port == 6633 && openflow_v4 && (openflow_v4.type == OFPT_PACKET_IN || openflow_v4.type == OFPT_PACKET_OUT)")
 
 
 Conclusion : L'attaque est très efficace pour bloquer un switch spécifique, et peut être contrée si le contrôleur n'est pas dans un mode d'apprentissage (si après avoir enregistré les divers éléments sur le réseau il cesse de rajouter des règles avec d'autres IP/mac concernées). Tout dépend donc de la programmation du contrôleur.
