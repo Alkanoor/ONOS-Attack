@@ -43,7 +43,7 @@ while (True):
             t[random.randint(0,99999)] = (random_ip(), random_mac())
         src_ip,src_mac_address = t[cur]
         cur += 1
-    eth_pkt = broadcast_mac.replace(':','')+src_mac_address.replace(':','')+"08060001080006040001"+src_mac_address.replace(':','')+src_ip+"000000000000"+dst_ip
+    eth_pkt = broadcast_mac.replace(':','')+dst_mac_address.replace(':','')+"08060001080006040001"+src_mac_address.replace(':','')+src_ip+"000000000000"+dst_ip
     eth_pkt = binascii.unhexlify(eth_pkt)
 
     if len(t)<100000:
