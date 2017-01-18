@@ -23,10 +23,8 @@ if len(sys.argv)<2:
 
 interface = sys.argv[2]
 
-src_mac_address = random_mac()
 dst_mac_address = sys.argv[1]
 broadcast_mac = 'ff:ff:ff:ff:ff:ff'
-src_ip = random_ip()
 dst_ip = '0a000001'
 
 s = socket.socket(AF_PACKET, SOCK_RAW)
@@ -34,11 +32,13 @@ s.bind((interface, 0))
 
 
 while (True):
+    src_mac_address = random_mac()
+    src_ip = random_ip()
     eth_pkt = broadcast_mac.replace(':','')+src_mac_address.replace(':','')+"08060001080006040001"+src_mac_address.replace(':','')+src_ip+"000000000000"+dst_ip
     eth_pkt = binascii.unhexlify(eth_pkt)
 
     s.send(eth_pkt)
-    time.sleep(0.001)
+    time.sleep(0.01)
 
     # eth_pkt = dst_mac_address.replace(':','')+src_mac_address.replace(':','')+"0800450000547c6a40004001cc59"+src_ip+dst_ip+"08000a0000010001a5bf1c58000000006327070000000000101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637"
     # eth_pkt = binascii.unhexlify(eth_pkt)
