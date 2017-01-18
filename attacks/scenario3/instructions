@@ -6,22 +6,32 @@ Prérequis pratique : -ONOS dans sa configuration initiale, ou du moins, qui fai
 Depuis mininet :
 
 sudo ./general_topology.py
-    h7 python packet_in_flooding.py  h7-eth0 &
+    h7 python scenario3/packet_in_flooding.py 08:08:08:08:08:08 h7-eth0 &
     #(attendre quelques secondes)
-    iperf h1 h12
-    iperf h1 h12
-    iperf h1 h12
+    iperf h1 h11
+    iperf h4 h11
+    iperf h8 h11
+    dpctl dump-flows h11
 
 Comparer avec
 sudo ./general_topology.py
-    iperf h1 h12
-    iperf h1 h12
-    iperf h1 h12
+    iperf h1 h11
+    iperf h4 h11
+    iperf h8 h11
 
 
 Depuis le contrôleur :
 
-wireshark (filtrer avec "tcp.port == 6633 && openflow_v4 && (openflow_v4.type == OFPT_PACKET_IN || openflow_v4.type == OFPT_PACKET_OUT)")
+wireshark (filtrer avec "tcp.port == 6633 && openflow_v4")
 
 
-Conclusion : L'attaque est très efficace pour bloquer un switch spécifique, et peut être contrée si le contrôleur n'est pas dans un mode d'apprentissage (si après avoir enregistré les divers éléments sur le réseau il cesse de rajouter des règles avec d'autres IP/mac concernées). Tout dépend donc de la programmation du contrôleur.
+Attaque :
+    h7 envoie à un rythme soutenu de nombreux paquets à ONOS, avec des adresses ethernet source et IP source aléatoires, et ayant comme adresses de destination celle du switch cible.
+    ONOS, en mode forwarding au moins partiel, pousse des règles sur la cible jusqu'à saturer sa table de flux et provoquer un déni de service.
+
+Résultat expérimental :
+    Sur wireshark on observe un nombre très important de PACKET_IN transmis au contrôleur et de OFPT_FLOW_MOD qui correspondent à l'ajout ou la modification de règles sur les switchs.
+    On observe une chute drastique du débit entre h11 et n'importe quel autre switch comme le confirme un simple ping.
+
+Conclusion :
+    Si le contrôleur est configuré pour faire suivre une majorité de paquets, cela le menace d'un deni de service important.

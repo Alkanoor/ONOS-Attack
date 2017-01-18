@@ -22,7 +22,12 @@ Depuis l'extérieur :
 Observer ce qui se passe au niveau de la représentation du réseau à l'adresse http://[adresse IP du contrôleur]:8181/onos/ui/index.html#/topo
 
 
-On observe alors la création de 2 nouveaux liens virtuels entre s1 et s2 et entre s2 et s4 qui n'existent pas dans la pratique. Cela aboutit à l'impossibilité pour h2 de ping h11 puisque le chemin le plus court passe par le faux lien qui n'existe pas. Le ping entre h2 et h9 est en revanche toujours possible car le chemin le plus court reliant les 2 switchs ne passe pas par notre faux lien.
+Attaque :
+    h5 envoie à intervalle régulier un faux paquet LLDP en multicast avec un Dpid choisi, que le switch auquel est connecté h5 (s2) va renvoyer sous forme de PACKET_IN à ONOS.
+    ONOS croit alors qu'il existe un lien entre s2 et le switch avec le Dpid choisi.
+
+Résultat expérimental :
+    On observe la création de 2 nouveaux liens virtuels entre s1 et s2 et entre s2 et s4 qui n'existent pas dans la pratique. Cela aboutit à l'impossibilité pour h2 de ping h11 puisque le chemin le plus court passe par le faux lien qui n'existe pas. Le ping entre h2 et h9 est en revanche toujours possible car le chemin le plus court reliant les 2 switchs ne passe pas par notre faux lien.
 
 Conclusion :
-L'attaque est complexe à arrêter dans le cas d'un équipement malveillant directement présent sur le réseau. En effet, même si le contrôleur rajoute un champ signé dans les paquets LLDP qu'il envoie (afin de ne considérer à la réception que ceux dont il est à l'origine), si notre équipement malveillant arrive à récupérer le paquet, il peut le rejouer en broadcast et ainsi effectuer l'attaque, même si il ne peut plus réellement choisir les switchs à cibler.
+    L'attaque est complexe à arrêter dans le cas d'un équipement malveillant directement présent sur le réseau. En effet, même si le contrôleur rajoute un champ signé dans les paquets LLDP qu'il envoie (afin de ne considérer à la réception que ceux dont il est à l'origine), si notre équipement malveillant arrive à récupérer le paquet, il peut le rejouer en broadcast et ainsi effectuer l'attaque, même si il ne peut plus réellement choisir les switchs à cibler.
