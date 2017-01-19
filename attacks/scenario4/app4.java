@@ -40,10 +40,12 @@ public class AppComponent {
         {
             Thread t = new Thread()
             {
-                log.info("Thread {} started", i);
-                int j=0;
-                while(true)
-                    j++;
+                public void run() {
+                    log.info("Thread {} started", i);
+                    int j=0;
+                    while(true)
+                        j++;
+                }
             };
             t.start();
         }
