@@ -22,15 +22,22 @@ import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
+import org.onosproject.app.ApplicationManager;
+import org.onosproject.app.ApplicationAdminService;
+
+// import org.osgi.framework.Bundle;
+// import org.osgi.framework.BundleContext;
+// import org.osgi.framework.BundleException;
 
 /**
  * Application that tries to disable a chosen app
  */
 @Component(immediate = true)
 public class AppComponent {
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected ApplicationAdminService appadmin;
+
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final String target = "qspidojsqojid";
@@ -39,7 +46,7 @@ public class AppComponent {
     protected void activate() {
         log.info("Application 5 started : beginning application suppression");
 
-        BundleContext bundleContext = contextbk.getBundleContext();
+        /*BundleContext bundleContext = contextbk.getBundleContext();
         Bundle[] bundleList = bundleContext.getBundles();
 
         for(int i=0; i<bundleList.length; i++)
@@ -60,7 +67,13 @@ public class AppComponent {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
+
+        Set<Application> appset = appadmin.getApplications();
+
+        for(Application a : appset)
+            log.info("Get an app with id {}", a.id());
+
     }
 
     @Deactivate
