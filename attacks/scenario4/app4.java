@@ -42,9 +42,8 @@ public class AppComponent {
             {
                 public void run()
                 {
-                    int j=0;
                     while(true)
-                        j++;
+                        ;
                 }
             };
             t.start();
