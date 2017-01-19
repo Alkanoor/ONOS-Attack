@@ -46,7 +46,8 @@ public class AppComponent {
             t.add(new long[10000000]);
             for(int j=0; j<1000; j++)
                 t.get(i)[random.nextInt(10000000)] = 666;
-            log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), len(t.get(i)));
+            log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), t.get(i).length);
+            i++;
         }
     }
 

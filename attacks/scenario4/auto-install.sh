@@ -1,12 +1,10 @@
 #!/bin/bash
 
 
-echo $#
-
-if [ $# -g 2 ]
+if [ $# -ge 1 ]
 then
     echo "Deploying app number $1"
-    i = $1
+    i=$1
     cd ~/my_apps
     onos-create-app app org.app${i} app${i} 1.7.0 org.app${i}
     cp ~/ONOS-Attack/attacks/scenario4/app${i}.java ~/my_apps/app${i}/src/main/java/org/app${i}/AppComponent.java
