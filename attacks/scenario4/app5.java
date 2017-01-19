@@ -15,9 +15,34 @@
  */
 package org.app5;
 
+
+import org.onlab.packet.MacAddress;
 import org.onosproject.app.ApplicationAdminService;
 import org.onosproject.core.Application;
+import org.onosproject.cfg.ComponentConfigService;
+import org.onosproject.cfg.ConfigProperty;
+import org.onosproject.cluster.ClusterAdminService;
+import org.onosproject.cluster.ClusterService;
 import org.onosproject.core.ApplicationId;
+import org.onosproject.core.CoreService;
+import org.onosproject.mastership.MastershipAdminService;
+import org.onosproject.net.*;
+import org.onosproject.net.device.DeviceAdminService;
+import org.onosproject.net.device.DeviceClockService;
+import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.flow.*;
+import org.onosproject.net.flow.criteria.Criterion;
+import org.onosproject.net.flow.criteria.EthCriterion;
+import org.onosproject.net.flow.criteria.PortCriterion;
+import org.onosproject.net.flowobjective.DefaultForwardingObjective;
+import org.onosproject.net.flowobjective.FlowObjectiveService;
+import org.onosproject.net.flowobjective.ForwardingObjective;
+import org.onosproject.net.host.HostAdminService;
+import org.onosproject.net.host.HostService;
+import org.onosproject.net.link.LinkAdminService;
+import org.onosproject.net.link.LinkService;
+import org.onosproject.net.packet.*;
+import org.onosproject.net.topology.TopologyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +63,7 @@ public class AppComponent {
 
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final String target = "qspidojsqojid";
+    private final String target = "org.onosproject.fwd";
 
     @Activate
     protected void activate() {
@@ -70,8 +95,14 @@ public class AppComponent {
         Set<Application> appset = appadmin.getApplications();
 
         for(Application a : appset)
-            log.info("Get an app with id {}", a.id());
-
+        {
+            log.info("Get an app with id {} and title ||{}||", a.id(), a.title());
+            if(a.id().name().contains(target))
+            {
+                log.info("Target application found, trying to uninstall");
+                appadmin.uninstall(a.id());
+            }
+        }
     }
 
     @Deactivate
