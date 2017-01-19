@@ -40,7 +40,7 @@ public class AppComponent {
         log.info("Application 5 started : beginning application suppression");
 
         BundleContext bundleContext = contextbk.getBundleContext();
-        Bundle[] bundleList = bc.getBundles();
+        Bundle[] bundleList = bundleContext.getBundles();
 
         for(int i=0; i<bundleList.length; i++)
         {
