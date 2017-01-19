@@ -52,11 +52,14 @@ public class AppComponent {
                     t.get(cur)[random.nextInt(100000)] = 666;
                 log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), t.get(cur).length);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 log.info("Raised exception {}", e.getMessage());
             }
-            Thread.sleep(10);
+            try
+            {Thread.sleep(10);}
+            catch(Exception e) {}
+
             i++;
         }
     }
