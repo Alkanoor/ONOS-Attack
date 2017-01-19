@@ -42,15 +42,13 @@ public class AppComponent {
             {
                 public void run()
                 {
-                    final int cpy = i;
-                    final Logger log2(log);
-                    log2.info("Thread {} started", cpy);
                     int j=0;
                     while(true)
                         j++;
                 }
             };
             t.start();
+            log.info("Thread {} started", i);
         }
     }
 
