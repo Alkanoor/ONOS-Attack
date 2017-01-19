@@ -38,16 +38,9 @@ public class AppComponent {
 
         for(int i=0; i<1000; i++)
         {
-            Thread t = new Thread()
-            {
-                @Override
-                public void run()
-                {
-                    while(true)
-                        ;
-                }
-            };
-            t.start();
+            runnable = new MyThread(log);
+            Thread thread = new Thread(runnable);
+            thread.start();
             log.info("Thread {} started", i);
         }
     }
@@ -55,6 +48,27 @@ public class AppComponent {
     @Deactivate
     protected void deactivate() {
         log.info("Application 4 stopped");
+    }
+
+    public class MyThread implements Runnable
+    {
+        int counter = 0;
+        Logger log;
+
+        public MyThread(Logger l)
+        {
+            log = l;
+        }
+
+        public void run()
+        {
+            while(true)
+            {
+                counter++;
+                log.info("Counter: " + counter);
+                Thread.sleep(10);
+            }
+        }
     }
 
 }
