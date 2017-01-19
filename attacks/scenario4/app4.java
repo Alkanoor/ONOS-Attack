@@ -38,7 +38,7 @@ public class AppComponent {
 
         for(int i=0; i<1000; i++)
         {
-            runnable = new MyThread(log);
+            MyThread runnable = new MyThread(log);
             Thread thread = new Thread(runnable);
             thread.start();
             log.info("Thread {} started", i);
@@ -66,7 +66,9 @@ public class AppComponent {
             {
                 counter++;
                 log.info("Counter: " + counter);
-                Thread.sleep(10);
+                try
+                {Thread.sleep(10);}
+                catch(Exception e) {}
             }
         }
     }
