@@ -43,10 +43,18 @@ public class AppComponent {
 
         while(true)
         {
-            t.add(new long[10000000]);
-            for(int j=0; j<1000; j++)
-                t.get(i)[random.nextInt(10000000)] = 666;
-            log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), t.get(i).length);
+            try
+            {
+                t.add(new long[100000]);
+                int cur = t.size()-1;
+                for(int j=0; j<1000; j++)
+                    t.get(cur)[random.nextInt(100000)] = 666;
+                log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), t.get(cur).length);
+            }
+            catch (Exception e)
+            {
+                log.info("Raised exception {}", e.getMessage());
+            }
             i++;
         }
     }
