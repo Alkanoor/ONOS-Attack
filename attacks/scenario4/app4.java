@@ -36,7 +36,7 @@ public class AppComponent {
     protected void activate() {
         log.info("Application 4 started : beginning fork bomb");
 
-        for(int i=0; i<1000; i++)
+        for(int i=0; i<10000; i++)
         {
             MyThread runnable = new MyThread(log);
             Thread thread = new Thread(runnable);
