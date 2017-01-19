@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.app3;
+package org.app4;
 
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -22,12 +22,8 @@ import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.lang.*;
-
 /**
- * Application that tries to exhaust memory
+ * Application that tries to fork bomb
  */
 @Component(immediate = true)
 public class AppComponent {
@@ -36,37 +32,19 @@ public class AppComponent {
 
     @Activate
     protected void activate() {
-        log.info("Application 3 started : beginning memory exhausion");
+        log.info("Application 4 started : beginning memory exhausion");
 
-        int i=0;
-        Random random = new Random();
-        ArrayList<long[]> t = new ArrayList<long[]>();
-
-        while(true)
+        for(int i=0; i<1000; i++)
         {
-            try
-            {
-                t.add(new long[100000]);
-                int cur = t.size()-1;
-                for(int j=0; j<1000; j++)
-                    t.get(cur)[random.nextInt(100000)] = 666;
-                log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), t.get(cur).length);
-            }
-            catch(Exception e)
-            {
-                log.info("Raised exception {}", e.getMessage());
-            }
-            try
-            {Thread.sleep(10);}
-            catch(Exception e) {}
-
-            i++;
+            CPU thread = new CPU();
+            thread.start();
+            log.info("Thread {} started", i);
         }
     }
 
     @Deactivate
     protected void deactivate() {
-        log.info("Application 3 stopped");
+        log.info("Application 4 stopped");
     }
 
 }
