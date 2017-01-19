@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Application that tries to exit controller
+ * Application that tries to stuck controller in while(1)
  */
 @Component(immediate = true)
 public class AppComponent {
@@ -32,13 +32,19 @@ public class AppComponent {
 
     @Activate
     protected void activate() {
-        log.info("Application 1 started");
-        System.exit(0);
+        log.info("Application 2 started");
+        int i=0;
+        while(1)
+        {
+            i++;
+            if(!(i%100000))
+                log.info("Continuing loop : {}", i);
+        }
     }
 
     @Deactivate
     protected void deactivate() {
-        log.info("Application 1 stopped");
+        log.info("Application 2 stopped");
     }
 
 }
