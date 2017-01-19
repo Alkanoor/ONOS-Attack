@@ -38,20 +38,21 @@ public class AppComponent {
         log.info("Application 3 started : beginning memory exhausion");
 
         int i=0;
+        Random random = new Random();
         ArrayList<long[]> t = new ArrayList<long[]>();
 
         while(true)
         {
-            t.append(new long[10000000]);
+            t.add(new long[10000000]);
             for(int j=0; j<1000; j++)
-                t[i][ran.nextInt(10000000)] = 666;
-            log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), len(t[i]));
+                t.get(i)[random.nextInt(10000000)] = 666;
+            log.info("Continuing loop : {} with table of size {} and t[i] of size {} ", i, t.size(), len(t.get(i)));
         }
     }
 
     @Deactivate
     protected void deactivate() {
-        log.info("Application 2 stopped");
+        log.info("Application 3 stopped");
     }
 
 }
