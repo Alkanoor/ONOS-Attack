@@ -22,8 +22,8 @@ import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.onosproject.app.impl.ApplicationManager;
 import org.onosproject.app.ApplicationAdminService;
+import java.util.*;
 
 // import org.osgi.framework.Bundle;
 // import org.osgi.framework.BundleContext;
