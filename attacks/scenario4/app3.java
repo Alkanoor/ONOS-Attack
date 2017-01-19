@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.*;
 
 /**
  * Application that tries to stuck controller in while(1)
@@ -55,6 +56,7 @@ public class AppComponent {
             {
                 log.info("Raised exception {}", e.getMessage());
             }
+            Thread.sleep(10);
             i++;
         }
     }
