@@ -37,7 +37,6 @@ public class AppComponent {
         while(true)
         {
             i++;
-            log.info("ici");
             log.info("Continuing loop : {}", i);
         }
     }
