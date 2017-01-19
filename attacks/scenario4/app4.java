@@ -40,6 +40,7 @@ public class AppComponent {
         {
             Thread t = new Thread()
             {
+                @Override
                 public void run()
                 {
                     while(true)
