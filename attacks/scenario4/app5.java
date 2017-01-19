@@ -15,15 +15,9 @@
  */
 package org.app5;
 
-import com.google.common.collect.Lists;
-import org.apache.felix.scr.annotations.*;
-import org.onlab.metrics.MetricsService;
-import org.onlab.packet.Ethernet;
-import org.onlab.packet.Ip4Prefix;
-import org.onlab.packet.IpAddress;
-import org.onlab.packet.MacAddress;
 import org.onosproject.app.ApplicationAdminService;
-import org.onosproject.app.Application;
+import org.onosproject.core.Application;
+import org.onosproject.core.ApplicationId;
 import org.onosproject.cfg.ComponentConfigService;
 import org.onosproject.cfg.ConfigProperty;
 import org.onosproject.cluster.ClusterAdminService;
@@ -48,12 +42,6 @@ import org.onosproject.net.link.LinkAdminService;
 import org.onosproject.net.link.LinkService;
 import org.onosproject.net.packet.*;
 import org.onosproject.net.topology.TopologyService;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.component.ComponentContext;
-import org.osgi.service.component.ComponentInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
