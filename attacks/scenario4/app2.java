@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.app1;
+package org.app2;
 
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -34,11 +34,11 @@ public class AppComponent {
     protected void activate() {
         log.info("Application 2 started");
         int i=0;
-        while(1)
+        while(true)
         {
             i++;
-            if(!(i%100000))
-                log.info("Continuing loop : {}", i);
+            log.info("ici");
+            log.info("Continuing loop : {}", i);
         }
     }
 
