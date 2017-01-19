@@ -11,7 +11,6 @@ sudo ./general_topology.py
     iperf h1 h8
     iperf h4 h8
     iperf h12 h8
-    dpctl dump-flows h11
 
 Comparer avec
 sudo ./general_topology.py
@@ -26,12 +25,12 @@ wireshark (filtrer avec "tcp.port == 6633 && openflow_v4")
 
 
 Attaque :
-    h7 envoie à un rythme soutenu de nombreux paquets à ONOS, avec des adresses ethernet source et IP source aléatoires, et ayant comme adresses de destination celle du switch cible.
+    h11 envoie à un rythme soutenu de nombreux paquets au switch qui le relie à ONOS, avec des adresses ethernet source et IP source aléatoires, et ayant comme adresses de destination celle du switch cible.
     ONOS, en mode forwarding au moins partiel, pousse des règles sur la cible jusqu'à saturer sa table de flux et provoquer un déni de service.
 
 Résultat expérimental :
     Sur wireshark on observe un nombre très important de PACKET_IN transmis au contrôleur et de OFPT_FLOW_MOD qui correspondent à l'ajout ou la modification de règles sur les switchs.
-    On observe une chute drastique du débit entre h11 et n'importe quel autre switch comme le confirme un simple ping.
+    On observe une chute drastique du débit dès lors que les paquets doivent passer par le switch visé comme le confirme un simple ping.
 
 Conclusion :
-    Si le contrôleur est configuré pour faire suivre une majorité de paquets, cela le menace d'un deni de service important.
+    Si le contrôleur est configuré pour faire suivre une majorité de paquets, cela le menace d'un deni de service important et relativement facile à exécuter dès lors qu'on a une possibilité d'injection de PACKET_IN dans le réseau.

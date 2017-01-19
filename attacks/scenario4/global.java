@@ -462,12 +462,6 @@ public class AppAgent {
         return true;
     }
 
-    public boolean testSystemVariableManipulation() {
-        System.out.println("[ATTACK] System_Variable_Manipulation");
-        this.systime = new SystemTimeSet();
-        systime.start();
-        return true;
-    }
 
     public boolean testSystemCommandExecution() {
         System.out.println("[ATTACK] System_Command_Execution");
