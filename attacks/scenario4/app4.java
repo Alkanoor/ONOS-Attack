@@ -22,6 +22,8 @@ import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.*;
+
 /**
  * Application that tries to fork bomb
  */
@@ -32,13 +34,18 @@ public class AppComponent {
 
     @Activate
     protected void activate() {
-        log.info("Application 4 started : beginning memory exhausion");
+        log.info("Application 4 started : beginning fork bomb");
 
         for(int i=0; i<1000; i++)
         {
-            CPU thread = new CPU();
-            thread.start();
-            log.info("Thread {} started", i);
+            Thread t = new Thread()
+            {
+                log.info("Thread {} started", i);
+                int j=0;
+                while(true)
+                    j++;
+            };
+            t.start();
         }
     }
 
