@@ -17,6 +17,8 @@ package org.app8;
 
 import org.apache.felix.scr.annotations.*;
 import org.onosproject.net.device.DeviceService;
+import org.onosproject.core.Application;
+import org.onosproject.core.ApplicationId;
 import org.onlab.packet.Ethernet;
 import org.onlab.packet.Ip4Prefix;
 import org.onlab.packet.IpAddress;
@@ -43,16 +45,13 @@ public class AppComponent {
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected FlowRuleService flowRuleService;
 
-    @Property(name = "flowTimeout", intValue = DEFAULT_TIMEOUT, label = "Configure Flow Timeout for installed flow rules; ")
-    private int flowTimeout = DEFAULT_TIMEOUT;
-
     private ApplicationId appId;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Activate
     protected void activate() {
-        log.info("Application 8 started : beginning flooding on switches {}", flowTimeout);
+        log.info("Application 8 started : beginning flooding on switches");
 
         appId = coreService.registerApplication("org.app8");
 
@@ -71,7 +70,7 @@ public class AppComponent {
             for(int i=0; i<60000; i++)
             {
                 selector.matchEthDst(MacAddress.valueOf(random.nextLong()));
-                FlowRule new_flow = new DefaultFlowRule(device.id(), selector.build(), treat.build(), 16000, appId, flowTimeout, true, null);
+                FlowRule new_flow = new DefaultFlowRule(device.id(), selector.build(), treat.build(), 16000, appId, 100000, true, null);
                 flowRuleService.applyFlowRules(new_flow);
             }
         }
