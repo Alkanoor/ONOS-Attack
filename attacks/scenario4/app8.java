@@ -16,8 +16,6 @@
 package org.app8;
 
 import org.apache.felix.scr.annotations.*;
-import org.onosproject.net.device.DeviceAdminService;
-import org.onosproject.net.device.DeviceClockService;
 import org.onosproject.net.device.DeviceService;
 import org.onosproject.core.CoreService;
 import org.onosproject.core.Application;
@@ -26,6 +24,7 @@ import org.onlab.packet.Ethernet;
 import org.onlab.packet.Ip4Prefix;
 import org.onlab.packet.IpAddress;
 import org.onlab.packet.MacAddress;
+ import org.onosproject.net.*;
 import org.onosproject.net.flow.*;
 import org.onosproject.net.flowobjective.DefaultForwardingObjective;
 import org.onosproject.net.flowobjective.FlowObjectiveService;
