@@ -15,7 +15,7 @@ then
     onos-app localhost install target/app${i}-1.7.0.oar
 else
     echo "No argument : deploying all apps !"
-    for i in $(seq 1 8);
+    for i in $(seq 9 10);
     do
         cd ~/my_apps
         onos-create-app app org.app${i} app${i} 1.7.0 org.app${i}

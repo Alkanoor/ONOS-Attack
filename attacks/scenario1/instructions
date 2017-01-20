@@ -6,7 +6,6 @@ Prérequis pratique : -installer ettercap sur la machine virtuelle contenant Min
 
 
 Depuis mininet :
-
 sudo ./general_topology.py
     h2 ping h11 &
     h11 tcpdump -w dump_victim.pcap -i h11-eth0 &
@@ -14,7 +13,6 @@ sudo ./general_topology.py
 
 
 Depuis le contrôleur :
-
 wireshark (filtrer avec "tcp.port == 6633 && openflow_v4 && openflow_v4.type == OFPT_PACKET_IN", mais préférer observer les fichiers dump_victim.pcap et dump_attacker.pcap)
 
 

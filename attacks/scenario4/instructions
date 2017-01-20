@@ -1,0 +1,41 @@
+Prérequis théorique : -un éditeur d'applications mal intentionné
+
+Prérequis pratique : aucun
+
+
+Pour l'installation, depuis le contrôleur (être sûr qu'ONOS est déjà lancé) :
+./auto-install.sh
+Pour l'installation d'une application spécifique d'index X, depuis le contrôleur (être sûr qu'ONOS est déjà lancé) :
+./auto-install.sh X
+
+
+Depuis le contrôleur, dans la CLI ONOS :
+app activate org.appX (X variant de 1 à 8)
+display
+
+
+Depuis mininet :
+sudo ./general_topology.py
+
+
+Depuis l'extérieur :
+Observer ce qui se passe au niveau de la représentation du réseau à l'adresse http://[adresse IP du contrôleur]:8181/onos/ui/index.html#/topo
+
+
+
+Attaque :
+    app1 : ferme le contrôleur
+    app2 : monopolise inutilement une partie du processeur
+    app3 : alloue beaucoup de mémoire
+    app4 : fork bomb
+    app5 : désinstalle une application
+    app6 : supprime la représentation de tous les switchs présents
+    app7 : change la politique de traitement des paquets entrants
+    app8 : rejoue le scénario 3, depuis le contrôleur
+
+Résultat expérimental :
+    Certaines attaques sont très efficaces (1, 4, 5, 6).
+    Certaines n'ont quasiment pas d'effet (2, 3).
+
+Conclusion :
+    Lorsqu'ONOS est lancé en Security-Mode, il élimine la possibilité d'exécuter les applications 1, 5, 6, 7 et 8 si elles n'ont pas des droits corrects. Il ne reste plus que l'application 4 de dangereuse, par contre elle l'est énormément (plus de 70% du processeur utilisé, un ralentissement global et considérable du contrôleur).

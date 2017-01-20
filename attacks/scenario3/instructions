@@ -4,7 +4,6 @@ Prérequis pratique : -ONOS dans sa configuration initiale, ou du moins, qui fai
 
 
 Depuis mininet :
-
 sudo ./general_topology.py
     h11 python scenario3/packet_in_flooding.py 06:06:06:06:06:06 h11-eth0 &
     #(attendre quelques secondes)

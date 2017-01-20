@@ -4,7 +4,6 @@ Prérequis pratique : aucun
 
 
 Depuis mininet :
-
 sudo ./general_topology.py
     h5 python scenario2/lldp_exploit.py 1 h5-eth0 &
     h5 python scenario2/lldp_exploit.py 4 h5-eth0 &
@@ -13,12 +12,10 @@ sudo ./general_topology.py
 
 
 Depuis le contrôleur :
-
 wireshark (filtrer avec "tcp.port == 6633 && openflow_v4 && (openflow_v4.type == OFPT_PACKET_IN || openflow_v4.type == OFPT_PACKET_OUT)")
 
 
 Depuis l'extérieur :
-
 Observer ce qui se passe au niveau de la représentation du réseau à l'adresse http://[adresse IP du contrôleur]:8181/onos/ui/index.html#/topo
 
 

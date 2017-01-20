@@ -1,0 +1,25 @@
+Prérequis théorique : -Mot de passe faible ou compromission d'un utilisateur avec accès à l'API REST
+
+Prérequis pratique : -ONOS dans sa configuration initiale (ou mot de passe faiblement configuré), ou administrateur corrompu (social engineering, ...)
+
+
+Depuis n'importe ou :
+./exploit_misconfiguration.sh
+./stop_forwarding.sh
+
+
+Depuis mininet :
+sudo ./general_topology.py
+    h1 ping h12
+    h1 ping h7
+
+
+Attaque :
+    Modification de la politique de gestion des PACKET_IN depuis l'extérieur entraînant un ralentissement du service (configuration modifiée de telle sorte qu'aucun flux ne soit ajouté sur les switchs (donc réception permanente de PACKET_IN renvoyés en PACKET_OUT))
+    Suppression d'une application importante
+
+Résultat expérimental :
+    Un utilisateur avec les droits d'utilisation de l'API REST a d'énormes pouvoirs sur tout le réseau : il peut absolument tout faire.
+
+Conclusion :
+    Cela est embêtant dans la mesure où il n'existe pas encore de séparation des privilèges pour les utilisateurs de l'API REST, ni de possibilités d'utiliser l'API REST avec des droits restreints par exemple à une application spécifique.

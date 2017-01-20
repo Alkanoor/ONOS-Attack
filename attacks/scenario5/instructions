@@ -1,0 +1,27 @@
+Prérequis théorique : -un éditeur d'applications mal intentionné
+
+Prérequis pratique : aucun
+
+
+Pour l'installation, depuis le contrôleur (être sûr qu'ONOS est déjà lancé) :
+./auto-install.sh
+Pour l'installation d'une application spécifique d'index X, depuis le contrôleur (être sûr qu'ONOS est déjà lancé) :
+./auto-install.sh X
+
+
+Depuis le contrôleur, dans la CLI ONOS :
+app activate org.appX (X variant de 9 à 10)
+display
+
+
+
+Attaque :
+    app9 :  lis certains fichiers de /proc/[PID du contrôleur]
+    app10 : lis le nom, la description, etc ... des applications présentes sur le contrôleur
+
+Résultat expérimental :
+    Avec des droits en lecture sur le système de fichiers, on peut lire quasiment l'intégralité des fichiers dans /proc et donc potentiellement y trouver des informations intéressantes (descripteurs de fichiers, commandes shell utilisées, ...).
+    Si on a des droits corrects au niveau du contrôleur, on peut afficher tout ce qui concerne les autres applications présentes.
+
+Conclusion :
+    La gestion des droits doit être correcte si on veut éviter que trop d'information fuite depuis le contrôleur. Le Security-Mode permet également de supprimer les droits d'accès au système de fichier ce qui est utile ici.
