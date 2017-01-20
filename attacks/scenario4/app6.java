@@ -53,7 +53,9 @@ public class AppComponent {
         {
             Device device = (Device)it.next();
             deviceadmin.removeDevice(device.id());
-            removed_devices += device.id()+" || ";
+            removed_devices += device.id();
+            if(it.hasNext())
+                removed_devices += " || ";
         }
 
         log.info("Devices has been removed : {}", removed_devices);

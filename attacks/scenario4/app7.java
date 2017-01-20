@@ -16,10 +16,8 @@
 package org.app7;
 
 import org.apache.felix.scr.annotations.*;
-import org.onosproject.app.ApplicationAdminService;
-import org.onosproject.core.Application;
-import org.onosproject.core.ApplicationId;
-import org.onosproject.core.CoreService;
+import org.onosproject.cfg.ComponentConfigService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +28,9 @@ import java.util.*;
  */
 @Component(immediate = true)
 public class AppComponent {
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected ComponentConfigService cfgService;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
