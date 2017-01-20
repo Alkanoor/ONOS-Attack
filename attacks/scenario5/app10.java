@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.app5;
+package org.app10;
 
 import org.apache.felix.scr.annotations.*;
 import org.onosproject.app.ApplicationAdminService;
