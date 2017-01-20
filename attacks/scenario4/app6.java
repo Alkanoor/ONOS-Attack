@@ -15,16 +15,13 @@
  */
 package org.app6;
 
-import com.google.common.collect.Lists;
 import org.apache.felix.scr.annotations.*;
-import org.onosproject.app.ApplicationAdminService;
-import org.onosproject.core.Application;
-import org.onosproject.core.ApplicationId;
-import org.onosproject.core.CoreService;
+import org.onosproject.net.*;
+import org.onosproject.net.device.DeviceAdminService;
+import org.onosproject.net.device.DeviceClockService;
+import org.onosproject.net.device.DeviceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 /**
  * Application that tries to remove links
@@ -32,32 +29,32 @@ import java.util.*;
 @Component(immediate = true)
 public class AppComponent {
 
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected DeviceService deviceService;
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected DeviceAdminService deviceadmin;
+
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Activate
     protected void activate() {
         log.info("Application 6 started : beginning links suppression");
 
-        Iterable<Device> dv = deviceService.getDevices();
-        Iterator it = dv.iterator();
+        Iterable<Device> devices = deviceService.getDevices();
+        Iterator it = devices.iterator();
 
-        if (it.hasNext())
-            removed = "success|";
+        String removed_devices = new String();
 
-        while (it.hasNext()) {
-            Device piece = (Device) it.next();
-            deviceadmin.removeDevice(piece.id());
-            removed += piece.id() + "-" + piece.serialNumber() + "|";
+        while(it.hasNext())
+        {
+            Device device = (Device)it.next();
+            deviceadmin.removeDevice(device.id());
+            removed_devices += device.id()+" || ";
         }
 
-        System.out.println("[ATTACK] Device Remove: \n" + removed);
-        Iterable<Link> links = linkService.getActiveLinks();
-        it = dv.iterator();
-        while (it.hasNext()) {
-            Link link = (Link) it.next();
-        }
-
-        return removed;
+        log.info("Devices has been removed : {}", removed_devices);
     }
 
     @Deactivate

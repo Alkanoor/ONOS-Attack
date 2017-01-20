@@ -15,7 +15,6 @@
  */
 package org.app8;
 
-import com.google.common.collect.Lists;
 import org.apache.felix.scr.annotations.*;
 import org.onosproject.app.ApplicationAdminService;
 import org.onosproject.core.Application;
