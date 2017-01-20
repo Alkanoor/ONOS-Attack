@@ -11,6 +11,7 @@ then
     cd app${i}
     python -c "tmp = open('$(pwd)/pom.xml','rb').read().replace('org.foo.app', 'org.app${i}').replace('Foo App', 'App${i}').replace('Foo, Inc.', 'L\'App${i}, cpny'); open('$(pwd)/pom.xml','wb').write(tmp)"
     mvn clean install -Dmaven.test.skip=true
+    echo onos-app localhost install target/app${i}-1.7.0.oar
     onos-app localhost install target/app${i}-1.7.0.oar
 else
     echo "No argument : deploying all apps !"
@@ -22,6 +23,7 @@ else
         cd app${i}
         python -c "tmp = open('$(pwd)/pom.xml','rb').read().replace('org.foo.app', 'org.app${i}').replace('Foo App', 'App${i}').replace('Foo, Inc.', 'L\'App${i}, cpny'); open('$(pwd)/pom.xml','wb').write(tmp)"
         mvn clean install -Dmaven.test.skip=true
+        echo onos-app localhost install target/app${i}-1.7.0.oar
         onos-app localhost install target/app${i}-1.7.0.oar
     done
 fi
