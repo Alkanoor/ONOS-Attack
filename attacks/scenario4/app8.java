@@ -17,6 +17,7 @@ package org.app8;
 
 import org.apache.felix.scr.annotations.*;
 import org.onosproject.net.device.DeviceService;
+import org.onosproject.core.CoreService;
 import org.onosproject.core.Application;
 import org.onosproject.core.ApplicationId;
 import org.onlab.packet.Ethernet;
@@ -38,6 +39,9 @@ import java.util.*;
  */
 @Component(immediate = true)
 public class AppComponent {
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected CoreService coreService;
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected DeviceService deviceService;
