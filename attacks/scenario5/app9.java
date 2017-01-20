@@ -38,8 +38,16 @@ public class AppComponent {
     protected void activate() {
         log.info("Application 9 started : beginning information reading");
 
-        String pid = getPid();
-        log.info("PID found : {}", pid);
+        try
+        {
+            String pid = getPid();
+            log.info("PID found : {}", pid);
+        }
+        catch(Exception e)
+        {
+            log.info("Unable to find pid");
+            return;
+        }
 
         ArrayList<String> files = getAllFiles(new File("/proc/"+pid+""));
         log.info("App has access to");
@@ -47,8 +55,16 @@ public class AppComponent {
             log.info(s);
 
         String path = "/proc/"+pid+"/cmdline";
-        String read = readFile(path, 1024);
-        log.info("App read the file {} : {}", path, read);
+        try
+        {
+            String read = readFile(path, 1024);
+            log.info("App read the file {} : {}", path, read);
+        }
+        catch(Exception e)
+        {
+            log.info("Unable to open path {}", path);
+            return;
+        }
     }
 
     @Deactivate
