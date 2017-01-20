@@ -72,7 +72,7 @@ public class AppComponent {
         {
             Device device = (Device)it.next();
 
-            for(int i=0; i<60000; i++)
+            for(int i=0; i<30000; i++)
             {
                 selector.matchEthDst(MacAddress.valueOf(random.nextLong()));
                 FlowRule new_flow = new DefaultFlowRule(device.id(), selector.build(), treat.build(), 16000, appId, 100000, true, null);
