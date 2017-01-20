@@ -16,6 +16,8 @@
 package org.app8;
 
 import org.apache.felix.scr.annotations.*;
+import org.onosproject.net.device.DeviceAdminService;
+import org.onosproject.net.device.DeviceClockService;
 import org.onosproject.net.device.DeviceService;
 import org.onosproject.core.CoreService;
 import org.onosproject.core.Application;
