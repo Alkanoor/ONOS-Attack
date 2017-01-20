@@ -38,9 +38,10 @@ public class AppComponent {
     protected void activate() {
         log.info("Application 9 started : beginning information reading");
 
+        String pid = new String();
         try
         {
-            String pid = getPid();
+            pid = getPid();
             log.info("PID found : {}", pid);
         }
         catch(Exception e)
