@@ -62,7 +62,7 @@ public class AppComponent {
         Iterable<Device> devices = deviceService.getDevices();
         Iterator it = devices.iterator();
 
-        private Random random = new Random();
+        Random random = new Random();
 
         while(it.hasNext())
         {
