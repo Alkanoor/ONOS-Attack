@@ -84,7 +84,7 @@ public class AppComponent {
         while(is.read(encoded)>0)
         {
             is.read(encoded);
-            tmp = new String(encoded);
+            String tmp = new String(encoded);
             ret += tmp;
         }
         return ret;
