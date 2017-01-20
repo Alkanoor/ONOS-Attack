@@ -41,7 +41,7 @@ public class AppComponent {
         String pid = getPid();
         log.info("PID found : {}", pid);
 
-        ArrayList files = getAllFiles(new File("/proc/"+pid+""));
+        ArrayList<String> files = getAllFiles(new File("/proc/"+pid+""));
         log.info("App has access to");
         for(String s : files)
             log.info(s);
@@ -67,7 +67,7 @@ public class AppComponent {
 	    return "-1";
 	}
 
-    static ArrayList getAllFiles(File curDir)
+    static ArrayList<String> getAllFiles(File curDir)
     {
 		ArrayList r = new ArrayList();
         File[] filesList = curDir.listFiles();
